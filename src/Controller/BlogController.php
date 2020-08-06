@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -31,23 +32,6 @@ class BlogController extends AbstractController
     {
         return $this->render('blog/home.html.twig');
     }
-
-    /**
-     * @Route("/blog/new", name="app_create")
-     */
-    public function create(Request $request,EntityManagerInterface $manager)
-    {
-       // dd($manager);
-        $article=new Article();
-        $form=$this->createFormBuilder($article)
-            ->add('title')
-            ->add('content')
-            ->add('image')
-            ->getForm();
-        return $this->render('blog/create.html.twig',[
-        'formArticle'=>$form->createView()
-    ]);
-    }
     /**
      * @Route("/blog/{id<[0-9]+>}", name="app_show")
      */
@@ -57,5 +41,39 @@ class BlogController extends AbstractController
             ['article'=>$article
 
             ]);
+    }
+
+    /**
+     * @Route("/blog/new", name="app_create")
+     * @Route("/blog/{id<[0-9]+>}/edit")
+     */
+    public function form(Article $article=null, Request $request,EntityManagerInterface $manager)
+    {
+        if (!$article){
+            $article=new Article();
+        }
+/*        $form=$this->createFormBuilder($article)
+            ->add('title')
+            ->add('content')
+            ->add('image')
+            ->getForm();
+*/
+        $form=$this->createForm(ArticleType::class,$article);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if (!$article->getId()){
+            $article-> setCreateAt(new \DateTime());
+            }
+
+            $manager->persist($article);
+            $manager->flush();
+
+            return $this->redirectToRoute('app_show',['id' =>$article->getId()]);
+        }
+        return $this->render('blog/create.html.twig',[
+        'formArticle'=>$form->createView(),
+         'editMod'=>$article->getId() !==null
+    ]);
     }
 }
