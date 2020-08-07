@@ -21,6 +21,19 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_create') }}">Créer un article</a>
                 </li>
+                {% if not app.user %}
+                <li class="nav-item">
+                    <a class="nav-link " href="{{ path('security_login') }}">Connexion</a>
+                </li>
+                {% else %}
+
+                <li class="nav-item">
+                    <a class="nav-link " href="{{ path('security_logout') }}">déconnection</a>
+                </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link " href="{{ path('security_registration') }}">Inscription</a>
+                </li>
             </ul>
         </div>
     </nav>
