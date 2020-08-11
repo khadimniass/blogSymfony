@@ -1,13 +1,22 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-<h1 class="center">welcome to our registration page</h1>
-    {{ form_start(form) }}
-    {# {{ form_row(form.email,{'label':"nom d'utilusateu",'attr':{'placeholder':"address e-mail"}}) }}#}
-     {{ form_row(form.email,{'attr':{'placeholder':"address e-mail"}}) }}
-     {{ form_row(form.username,{'attr':{'placeholder':"nom d'titlusateu"}}) }}
-    {{ form_row(form.password,{'attr':{'placeholder':"mot de pass"}}) }}
-    {{ form_row(form.confirm_password,{'attr':{'placeholder':"Confirmation du mot de pass"}}) }}
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <h1 class="mt-3 center">INSCRIVEZ-VOUS </h1>
+            {{ form_start(form) }}
+            {# {{ form_row(form.email,{'label':"nom d'utilusateu",'attr':{'placeholder':"address e-mail"}}) }}#}
 
-    <button type="submit" class="btn btn-success">Inscription</button>
-    {{ form_end(form) }}
+            {{ form_row(form.email,{'attr':{'placeholder':"address e-mail"}}) }}
+
+            {{ form_row(form.firstName,{'attr':{'placeholder':"first name"}}) }}
+            {{ form_row(form.lastName,{'attr':{'placeholder':"last name"}}) }}
+
+             {{ form_row(form.username,{'attr':{'placeholder':"nom d'titlusateu"}}) }}
+            {{ form_row(form.password,{'attr':{'placeholder':"mot de pass"}}) }}
+            {{ form_row(form.confirm_password,{'attr':{'placeholder':"Confirmation du mot de pass"}}) }}
+
+            <button type="submit" class="btn btn-primary btn-block">Inscription</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
 {% endblock %}

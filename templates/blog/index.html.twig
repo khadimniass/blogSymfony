@@ -10,7 +10,9 @@
             <div class="metada">ecrit le {{ article.createAt | date('d/m/Y') }} à
                 {{ article.createAt | date('H:i') }} dans la catégorie politique</div>
             <div class="content">
+                <a href="{{ path('app_show', {'id' : article.id}) }}">
                 <img src="{{ article.image }}">
+                </a>
 
                 {{ article.content | raw }}
 

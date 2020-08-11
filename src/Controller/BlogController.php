@@ -16,6 +16,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class BlogController extends AbstractController
 {
     /**
+     * @Route("/", name="app_home")
+     */
+    public function home()
+    {
+        return $this->render('blog/home.html.twig');
+    }
+
+    /**
      * @Route("/blog", name="app_blog")
      */
     public function index(ArticleRepository $repo)
@@ -27,13 +35,7 @@ class BlogController extends AbstractController
             'articles'=>$articles
         ]);
     }
-    /**
-     * @Route("/", name="app_home")
-     */
-    public function home()
-    {
-        return $this->render('blog/home.html.twig');
-    }
+
     /**
      * @Route("/blog/{id<[0-9]+>}", name="app_show")
      */
@@ -63,21 +65,14 @@ class BlogController extends AbstractController
 
     /**
      * @Route("/blog/new", name="app_create")
-     * @Route("/blog/{id<[0-9]+>}/edit")
+     * @Route("/blog/{id<[0-9]+>}/edit",name="app_edit")
      */
     public function form(Article $article=null, Request $request,EntityManagerInterface $manager)
     {
         if (!$article){
             $article=new Article();
         }
-/*        $form=$this->createFormBuilder($article)
-            ->add('title')
-            ->add('content')
-            ->add('image')
-            ->getForm();
-*/
         $form=$this->createForm(ArticleType::class,$article);
-
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if (!$article->getId()){

@@ -1,22 +1,22 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Création d'un article !!!</h1>
-
-    {{ form_start(formArticle) }}
-    {{ form_row(formArticle.title,{'attr':{'placeholder':"titre de l'article"}}) }}
-    {{ form_row(formArticle.category) }}
-    {{ form_row(formArticle.content,{'attr':{'placeholder':"contenu de l'article"}}) }}
-    {{ form_row(formArticle.image,{'attr':{'placeholder':"url de l'image"}}) }}
-
-
-    <button type="submit" class="btn btn-success">
-        {% if not editMod %}
-            Enregistrer
-        {% else %}
-            Mise à jour
-        {% endif %}
-    </button>
-
-    {{ form_end(formArticle) }}
+    <div class="raw">
+        <div class="col-md-6 mx-auto">
+            <h1>Création d'un article !!!</h1>
+            {{ form_start(formArticle) }}
+            {{ form_row(formArticle.title,{'attr':{'placeholder':"titre de l'article"}}) }}
+            {{ form_row(formArticle.category) }}
+            {{ form_row(formArticle.content,{'attr':{'placeholder':"contenu de l'article"}}) }}
+            {{ form_row(formArticle.image,{'attr':{'placeholder':"url de l'image"}}) }}
+            <button type="submit" class="btn btn-primary btn-block">
+                {% if not editMod %}
+                    Enregistrer
+                {% else %}
+                    Mise à jour
+                {% endif %}
+            </button>
+            {{ form_end(formArticle) }}
+        </div>
+    </div>
 {% endblock %}

@@ -3,12 +3,17 @@
 {% block body %}
     <article>
         <h2>{{ article.title | raw }}</h2>
-        <div class="metada">ecrit le {{ article.createAt | date('d/m/Y') }}  à
-            {{ article.createAt | date('H:i') }} dans la catégorie {{ article.category.title }}</div>
+        <small class="metadata">ecrit le {{ article.createAt | date('d/m/Y') }}  à
+            {{ article.createAt | date('H:i') }} dans la catégorie {{ article.category.title }}
+        </small>
         <div class="content">
             <img src="{{article.image}}" alt="">
             <hr>
             {{article.content |raw}}
+            <a href="{{ path('app_edit',{'id' : article.id}) }}" class="btn btn-secondary btn-block">
+                modifier cet article
+            </a>
+
         </div>
     </article>
 
@@ -26,12 +31,12 @@
             </div>
         </div>
         {% endfor %}
-        {% if app.user %}
-        {{ form_start(commentForm) }}
-        {{ form_row(commentForm.author,{'attr':{'placeholder':"Votre nom"}}) }}
-        {{ form_row(commentForm.content,{'attr':{'placeholder':"Votre commentaire ici"}}) }}
-        <button type="submit" class="btn btn-success">commenter</button>
-        {{ form_end(commentForm) }}
+            {% if app.user %}
+            {{ form_start(commentForm) }}
+            {{ form_row(commentForm.author,{'attr':{'placeholder':"Votre nom"}}) }}
+            {{ form_row(commentForm.content,{'attr':{'placeholder':"Votre commentaire ici"}}) }}
+            <button type="submit" class="btn btn-success">commenter</button>
+            {{ form_end(commentForm) }}
         {% else %}
         <h2>Vous ne pouvez pas effectuer un commentaire</h2>
             <p>Si vous voulez commenter veillez vous <a href="{{ path('security_login') }}"  class="btn btn-success">Connecter</a></p>
