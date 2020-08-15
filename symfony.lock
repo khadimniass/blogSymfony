@@ -105,6 +105,9 @@
     "fzaninotto/faker": {
         "version": "v1.9.1"
     },
+    "mercuryseries/flashy-bundle": {
+        "version": "v3.0.0"
+    },
     "monolog/monolog": {
         "version": "2.1.1"
     },

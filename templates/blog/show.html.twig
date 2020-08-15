@@ -10,7 +10,7 @@
             <img src="{{article.image}}" alt="">
             <hr>
             {{article.content |raw}}
-            <a href="{{ path('app_edit',{'id' : article.id}) }}" class="btn btn-secondary btn-block">
+            <a href="{{ path('app_edit',{'id' : article.id}) }}" class="btn btn-primary btn-block">
                 modifier cet article
             </a>
 
@@ -31,15 +31,6 @@
             </div>
         </div>
         {% endfor %}
-            {% if app.user %}
-            {{ form_start(commentForm) }}
-            {{ form_row(commentForm.author,{'attr':{'placeholder':"Votre nom"}}) }}
-            {{ form_row(commentForm.content,{'attr':{'placeholder':"Votre commentaire ici"}}) }}
-            <button type="submit" class="btn btn-success">commenter</button>
-            {{ form_end(commentForm) }}
-        {% else %}
-        <h2>Vous ne pouvez pas effectuer un commentaire</h2>
-            <p>Si vous voulez commenter veillez vous <a href="{{ path('security_login') }}"  class="btn btn-success">Connecter</a></p>
-        {% endif %}
+        {{ include('blog/_comment.html.twig') }}
     </section>
 {% endblock %}
